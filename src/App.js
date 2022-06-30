@@ -1,7 +1,7 @@
 
 import React from "react";
 import './styles/main.scss'
-import 'rsuite/dist/rsuite.min.css'
+import 'rsuite/dist/styles/rsuite-default.css';
 import { Switch } from "react-router";
 import Signin from './pages/Signin'
 import PrivateRoute from './components/PrivateRoutes'
