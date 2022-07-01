@@ -4,6 +4,7 @@ import {Button,Modal,Alert} from 'rsuite'
 import AvatarEditor from 'react-avatar-editor';
 import {storage, database } from '../../misc/firebase';
 import { useProfile } from '../../context/profile.context';
+import ProfileAvatar from './ProfileAvatar';
 
 const getBlob = canvas => {
     return new Promise((resolve, reject) => {
@@ -78,7 +79,7 @@ const AvtarUploadBtn = () => {
 
   return (
     <div className='mt-3 text-center'>
-
+        <ProfileAvatar src={profile.avatar} name={profile.name} className="width-200 height-200 img-fullsize"/>
         <div>
             <label htmlFor='avatar-upload' className='d-block cursor-pointer padded'>
                 select new avatar
