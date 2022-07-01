@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth'
 import 'firebase/compat/database'
+import 'firebase/compat/storage'
 
 
 const config= {
@@ -17,3 +18,4 @@ const config= {
 
   export const auth=app.auth();
   export const database=app.database()
+  export const storage = app.storage();
