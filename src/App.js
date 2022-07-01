@@ -6,7 +6,7 @@ import { Switch } from "react-router";
 import Signin from './pages/Signin'
 import PrivateRoute from './components/PrivateRoutes'
 import PublicRoute from './components/PublicRoute'
-import Home from './pages/Home'
+import Home from './pages/Home/Index'
 import { ProfileProvider } from "./context/profile.context";
 
 function App() {
