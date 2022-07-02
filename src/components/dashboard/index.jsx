@@ -7,13 +7,25 @@ import AvtarUploadBtn from './AvtarUploadBtn';
 import EditableInput from './EditableInput';
 import ProviderBlock from './ProviderBlock';
 
+import { getUserUpdates } from '../../misc/helper';
+
+
 const Dashboard = ({ onSignOut }) => {
   const { profile } = useProfile();
   const onSave=async (newData)=>{
-    const userNicknameRef=database.ref(`/profiles/${profile.uid}`).child('name')
+    // const userNicknameRef=database.ref(`/profiles/${profile.uid}`).child('name')
   
    try {
-    await userNicknameRef.set(newData)
+    const updates = await getUserUpdates(
+      profile.uid,
+      'name',
+      newData,
+      database
+    );
+
+    await database.ref().update(updates);
+
+    // await userNicknameRef.set(newData)
     Alert.success('Nickname is updated',5000)
    } catch (error) {
     Alert.error(error.message,5000)
