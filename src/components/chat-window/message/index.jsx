@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router';
 import { Alert } from 'rsuite';
-import { database, auth } from '../../../misc/firebase';
+import { database, auth, storage } from '../../../misc/firebase';
 import { transformToArrWithId } from '../../../misc/helper';
-import MessageIte from './MessageIte';
+import MessageItem from './MessageIte';
 
 const Messages = () => {
   const { chatId } = useParams();
@@ -85,7 +85,7 @@ const Messages = () => {
   }, []);
 
   const handleDelete = useCallback(
-    async msgId => {
+    async (msgId, file) => {
       // eslint-disable-next-line no-alert
       if (!window.confirm('Delete this message?')) {
         return;
@@ -113,7 +113,16 @@ const Messages = () => {
 
         Alert.info('Message has been deleted');
       } catch (err) {
-        Alert.error(err.message);
+        return Alert.error(err.message);
+      }
+
+      if (file) {
+        try {
+          const fileRef = storage.refFromURL(file.url);
+          await fileRef.delete();
+        } catch (err) {
+          Alert.error(err.message);
+        }
       }
     },
     [chatId, messages]
@@ -124,7 +133,7 @@ const Messages = () => {
       {isChatEmpty && <li>No messages yet</li>}
       {canShowMessages &&
         messages.map(msg => (
-          <MessageIte
+          <MessageItem
             key={msg.id}
             message={msg}
             handleAdmin={handleAdmin}

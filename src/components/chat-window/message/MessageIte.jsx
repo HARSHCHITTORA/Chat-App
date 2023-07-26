@@ -8,9 +8,32 @@ import { useCurrentRoom } from '../../../context/current-room.context';
 import { auth } from '../../../misc/firebase';
 import { useHover, useMediaQuery } from '../../../misc/custom-hooks';
 import IconBtnControl from './IconBtnControl';
+import ImgBtnModal from './ImgBtnModal';
+
+const renderFileMessage = file => {
+  if (file.contentType.includes('image')) {
+    return (
+      <div className="height-220">
+        <ImgBtnModal src={file.url} fileName={file.name} />
+      </div>
+    );
+  }
+
+  if (file.contentType.includes('audio')) {
+    return (
+      // eslint-disable-next-line jsx-a11y/media-has-caption
+      <audio controls>
+        <source src={file.url} type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+    );
+  }
+
+  return <a href={file.url}>Download {file.name}</a>;
+};
 
 const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
-  const { author, createdAt, text, likes, likeCount } = message;
+  const { author, createdAt, text,file, likes, likeCount } = message;
 
   const [selfRef, isHovered] = useHover();
   const isMobile = useMediaQuery('(max-width: 992px)');
@@ -75,9 +98,9 @@ const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
           />
         )}
       </div>
-
       <div>
-        <span className="word-breal-all">{text}</span>
+      {text && <span className="word-breal-all">{text}</span>}
+        {file && renderFileMessage(file)}
       </div>
     </li>
   );

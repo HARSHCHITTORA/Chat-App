@@ -23,7 +23,8 @@ export const ProfileProvider =({children})=>
     const [isLoading,setIsLoading]=useState(true)
     useEffect(()=>{
         let userRef;
-
+        let userStatusRef;
+        
         const authUnsub=auth.onAuthStateChanged(authObj=>{
             if(authObj){
 

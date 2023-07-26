@@ -8,6 +8,7 @@ import 'firebase/compat/storage'
 const config= {
     apiKey: "AIzaSyBtCheb8FyI3dhITEup6fifj82VnBJlebk",
     authDomain: "chittox-chat-app.firebaseapp.com",
+    databaseURL:'https://chittox-chat-app-default-rtdb.firebaseio.com',
     projectId: "chittox-chat-app",
     storageBucket: "chittox-chat-app.appspot.com",
     messagingSenderId: "767434574817",

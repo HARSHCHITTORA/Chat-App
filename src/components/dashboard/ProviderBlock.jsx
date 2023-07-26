@@ -26,11 +26,11 @@ const ProviderBlock = () => {
     const unlink=async (providerId)=>{
         try {
             if(auth.currentUser.providerData.length===1){
-                throw new Error(`you cannot disconnect from ${providerId}`,5000)
+                throw new Error(`you cannot disconnect from ${providerId}`)
             }
             await auth.currentUser.unlink(providerId)
             updateIsConnected(providerId,false)
-            Alert.info(`Disconnected from ${providerId}`)
+            Alert.info(`Disconnected from ${providerId}`,5000)
         } catch (error) {
             Alert.error(error.message,5000)
         }
